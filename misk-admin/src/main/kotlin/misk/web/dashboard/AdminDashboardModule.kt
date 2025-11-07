@@ -4,6 +4,7 @@ import jakarta.inject.Qualifier
 import misk.inject.KAbstractModule
 import misk.security.authz.AccessAnnotationEntry
 import misk.web.dev.DevModule
+import misk.web.exceptions.AdminDashboardExceptionMapperModule
 import misk.web.metadata.config.ConfigDashboardTabModule
 import misk.web.metadata.config.ConfigMetadataAction
 import misk.web.metadata.database.DatabaseDashboardTabModule
@@ -32,6 +33,9 @@ class AdminDashboardModule @JvmOverloads constructor(
     // Base setup
     install(BaseDashboardModule(isDevelopment))
     install(NavbarModule())
+    
+    // Install improved error handling for admin dashboard
+    install(AdminDashboardExceptionMapperModule())
 
     if (System.getProperty("misk.dev.running") == "true") {
       install(DevModule())
